@@ -12,10 +12,10 @@ export const createAuthor = (newAuthor) => ({
   type: "CREATE_AUTHOR",
   newAuthor
 })
-export const updateProduct = (id, updatedProduct) => ({
-  type: "UPDATE_PRODUCT",
+export const updateAuthor = (id, updatedAuthor) => ({
+  type: "UPDATE_AUTHOR",
   id,
-  updatedProduct
+  updatedAuthor
 })
 
 ///REDUCERS
@@ -55,21 +55,19 @@ export const reducers = (state = initialState, action) => {
         ]
       }
 
-    case "UPDATE_PRODUCT":
-      console.log(" -- REDUCER -- UPDATE_PRODUCT | state: ", state)
-      console.log(" -- REDUCER -- UPDATE_PRODUCT | action", action)
+    case "UPDATE_AUTHOR":
+      console.log(" -- REDUCER -- UPDATE_AUTHOR | state: ", state)
+      console.log(" -- REDUCER -- UPDATE_AUTHOR | action", action)
       return {
         ...state,
-        products: state.products.map((product) => {
-          if (product.id === action.id) {
+        authors: state.authors.map((author) => {
+          if (author.id === action.id) {
             return {
-              ...product,
-              title: action.updatedProduct.title,
-              price: action.updatedProduct.price,
-              image: action.updatedProduct.image
+              ...author,
+              name: action.updatedAuthor.name
             }
           }
-          return product
+          return author
         })
       }
 

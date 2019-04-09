@@ -2,7 +2,7 @@ import React from "react"
 import "./EditAuthor.css"
 
 import { connect } from "react-redux"
-// import { createProduct } from "../../redux"
+import { updateAuthor } from "../../redux"
 import { Redirect, Link } from "react-router-dom"
 
 class EditAuthor extends React.Component {
@@ -10,7 +10,8 @@ class EditAuthor extends React.Component {
     super(props)
     this.state = {
       name: "",
-      nameValid: false
+      nameValid: false,
+      toAuthorList: false
     }
   }
 
@@ -39,21 +40,21 @@ class EditAuthor extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+  }
 
-    this.props.makeProduct({
-      title: this.state.title,
-      price: this.state.price,
-      image: this.state.image
+  handleUpdateButton = () => {
+    this.props.reviseAuthor(parseInt(this.props.match.params.id), {
+      name: this.state.name
     })
 
     this.setState({
-      toProductList: true
+      toAuthorList: true
     })
   }
 
   render() {
-    if (this.state.toProductList === true) {
-      return <Redirect to="/products" />
+    if (this.state.toAuthorList === true) {
+      return <Redirect to="/" />
     }
     return (
       <div className="editAuthorContainer">
@@ -85,7 +86,7 @@ class EditAuthor extends React.Component {
             <Link to={"/"}>
               <button>Cancel</button>
             </Link>
-            <input type="submit" value="Update" disabled={!this.state.nameValid} />
+            <input type="submit" value="Update" disabled={!this.state.nameValid} onClick={this.handleUpdateButton} />
           </form>
         </div>
       </div>
@@ -98,7 +99,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  // makeProduct: (newProduct) => dispatch(createProduct(newProduct))
+  reviseAuthor: (id, updatedAuthor) => dispatch(updateAuthor(id, updatedAuthor))
 })
 
 export default connect(
