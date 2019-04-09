@@ -8,9 +8,9 @@ export const deleteProduct = (id) => ({
   type: "DELETE_PRODUCT",
   id
 })
-export const createProduct = (newProduct) => ({
-  type: "CREATE_PRODUCT",
-  newProduct
+export const createAuthor = (newAuthor) => ({
+  type: "CREATE_AUTHOR",
+  newAuthor
 })
 export const updateProduct = (id, updatedProduct) => ({
   type: "UPDATE_PRODUCT",
@@ -37,20 +37,20 @@ export const reducers = (state = initialState, action) => {
         products: [...state.products.slice(0, deleteIndex), ...state.products.slice(deleteIndex + 1)]
       }
 
-    case "CREATE_PRODUCT":
-      console.log(" -- REDUCER -- CREATE_PRODUCT | state: ", state)
-      console.log(" -- REDUCER -- CREATE_PRODUCT | action", action)
+    case "CREATE_AUTHOR":
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- CREATE_AUTHOR | state: ", state)
+      console.log(" -- REDUCER -- CREATE_AUTHOR | action", action)
+      console.log(" -- REDUCER -- CREATE_AUTHOR | id ", id)
       id++
-      console.log(" -- REDUCER -- CREATE_PRODUCT | id ", id)
       return {
         ...state,
-        products: [
-          ...state.products,
+        authors: [
+          ...state.authors,
           {
             id,
-            title: action.newProduct.title,
-            price: action.newProduct.price,
-            image: action.newProduct.image
+            name: action.newAuthor.name,
+            quotes: []
           }
         ]
       }

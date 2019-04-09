@@ -2,36 +2,44 @@ import React from "react"
 import "./AddAuthor.css"
 
 import { connect } from "react-redux"
-import { createProduct } from "../../redux"
+import { createAuthor } from "../../redux"
 import { Redirect, Link } from "react-router-dom"
 
 class AddAuthor extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      name: "",
+      nameValid: false,
+      toAuthorList: false
+    }
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, () => {})
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (this.state.name.length < 3) {
+        this.setState({ nameValid: false })
+      } else {
+        this.setState({ nameValid: true })
+      }
+    })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
 
-    this.props.makeProduct({
-      title: this.state.title,
-      price: this.state.price,
-      image: this.state.image
+    this.props.makeAuthor({
+      name: this.state.name
     })
 
     this.setState({
-      toProductList: true
+      toAuthorList: true
     })
   }
 
   render() {
-    if (this.state.toProductList === true) {
-      return <Redirect to="/products" />
+    if (this.state.toAuthorList === true) {
+      return <Redirect to="/" />
     }
     return (
       <div className="addAuthorContainer">
@@ -54,14 +62,16 @@ class AddAuthor extends React.Component {
                       type="text"
                       name="name"
                       onChange={this.handleChange}
-                      value={this.state.image}
+                      value={this.state.name}
                     />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <input type="submit" value="Cancel" />
-            <input type="submit" value="Create" disabled={!this.state.titleValid || !this.state.priceValid} />
+            <Link to={"/"}>
+              <button>Cancel</button>
+            </Link>
+            <input type="submit" value="Create" disabled={!this.state.nameValid} />
           </form>
         </div>
       </div>
@@ -72,7 +82,7 @@ class AddAuthor extends React.Component {
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
-  makeProduct: (newProduct) => dispatch(createProduct(newProduct))
+  makeAuthor: (newAuthor) => dispatch(createAuthor(newAuthor))
 })
 
 export default connect(

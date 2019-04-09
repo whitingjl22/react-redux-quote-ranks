@@ -2,7 +2,7 @@ import React from "react"
 import "./EditAuthor.css"
 
 import { connect } from "react-redux"
-import { createProduct } from "../../redux"
+// import { createProduct } from "../../redux"
 import { Redirect, Link } from "react-router-dom"
 
 class EditAuthor extends React.Component {
@@ -28,8 +28,6 @@ class EditAuthor extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(`changing ${e.target.name}`)
-
     this.setState({ [e.target.name]: e.target.value }, () => {
       if (this.state.name.length < 3) {
         this.setState({ nameValid: false })
@@ -100,7 +98,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  makeProduct: (newProduct) => dispatch(createProduct(newProduct))
+  // makeProduct: (newProduct) => dispatch(createProduct(newProduct))
 })
 
 export default connect(
