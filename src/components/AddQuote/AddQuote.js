@@ -9,9 +9,23 @@ class AddQuote extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      name: "",
       quote: "",
       quoteValid: false,
       toQuotesList: false
+    }
+  }
+
+  componentDidMount = () => {
+    let name = ""
+
+    for (let i = 0; i < this.props.authors.length; i++) {
+      if (parseInt(this.props.match.params.id) === this.props.authors[i].id) {
+        name = this.props.authors[i].name
+
+        this.setState({ name: name })
+        break
+      }
     }
   }
 
@@ -46,7 +60,7 @@ class AddQuote extends React.Component {
         <Link to={"/"}>
           <p>Home</p>
         </Link>
-        <p>Provide a quote by ADD NAME HERE:</p>
+        <p>Provide a quote by {this.state.name}:</p>
         <div className="table">
           <form onSubmit={this.handleSubmit}>
             <table>
@@ -79,7 +93,9 @@ class AddQuote extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  authors: state.authors
+})
 
 const mapDispatchToProps = (dispatch) => ({
   makeAuthor: (newAuthor) => dispatch(createAuthor(newAuthor))
