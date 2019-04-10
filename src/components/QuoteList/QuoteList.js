@@ -55,7 +55,7 @@ class QuoteList extends React.Component {
                     <h4>{quote.votes}</h4>
                     <button>Vote Up</button>
                     <button>Vote Down</button>
-                    <button>Vote Delete</button>
+                    <button>Delete</button>
                   </li>
                 )
               })}
