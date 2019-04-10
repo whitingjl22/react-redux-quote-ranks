@@ -48,9 +48,9 @@ class QuoteList extends React.Component {
           <hr />
           <div className="quoteList_resultContainer">
             <ul>
-              {this.state.quotes.map((quote) => {
+              {this.state.quotes.map((quote, idx) => {
                 return (
-                  <li key={quote.id}>
+                  <li key={idx}>
                     <h4>"{quote.quote}"</h4>
                     <h4>{quote.votes}</h4>
                     <button>Vote Up</button>

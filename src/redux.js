@@ -12,6 +12,10 @@ export const createAuthor = (newAuthor) => ({
   type: "CREATE_AUTHOR",
   newAuthor
 })
+export const createQuote = (newQuote) => ({
+  type: "CREATE_QUOTE",
+  newQuote
+})
 export const updateAuthor = (id, updatedAuthor) => ({
   type: "UPDATE_AUTHOR",
   id,
@@ -55,6 +59,34 @@ export const reducers = (state = initialState, action) => {
         ]
       }
 
+    case "CREATE_QUOTE":
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- CREATE_QUOTE | state: ", state)
+      console.log(" -- REDUCER -- CREATE_QUOTE | action", action)
+      console.log(" -- REDUCER -- CREATE_QUOTE | id ", id)
+      id++
+      return {
+        ...state,
+        authors: [
+          ...state.authors.map((author) => {
+            console.log("AUTHOR CHECK: ", author.id, action.newQuote.id)
+            if (author.id === action.newQuote.id) {
+              console.log("AUTHOR FOUND: ", author.id, action.newQuote.id)
+              return {
+                ...author,
+                quotes: [
+                  ...author.quotes,
+                  {
+                    quote: action.newQuote.quote
+                  }
+                ]
+              }
+            }
+            return author
+          })
+        ]
+      }
+
     case "UPDATE_AUTHOR":
       console.log(" -- REDUCER -- UPDATE_AUTHOR | state: ", state)
       console.log(" -- REDUCER -- UPDATE_AUTHOR | action", action)
@@ -86,7 +118,7 @@ const initialState = {
       quotes: [
         {
           id: 1,
-          quote: "Be yourself; everyone else is already taken.",
+          quote: "Be yourself everyone else is already taken.",
           votes: 0
         },
         {

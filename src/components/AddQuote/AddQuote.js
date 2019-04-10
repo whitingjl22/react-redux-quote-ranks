@@ -2,7 +2,7 @@ import React from "react"
 import "./AddQuote.css"
 
 import { connect } from "react-redux"
-import { createAuthor } from "../../redux"
+import { createQuote } from "../../redux"
 import { Redirect, Link } from "react-router-dom"
 
 class AddQuote extends React.Component {
@@ -39,22 +39,20 @@ class AddQuote extends React.Component {
     })
   }
 
-  handleSubmit = (e) => {
+  handleFormSubmit = (e) => {
     e.preventDefault()
+  }
 
-    this.props.makeAuthor({
-      quote: this.state.quote
+  handleSubmitButton = () => {
+    this.props.makeQuote({
+      quote: this.state.quote,
+      id: parseInt(this.props.match.params.id)
     })
 
-    this.setState({
-      toQuotesList: true
-    })
+    this.props.history.goBack()
   }
 
   render() {
-    if (this.state.toQuotesList === true) {
-      return this.props.history.goBack()
-    }
     return (
       <div className="addAuthorContainer">
         <Link to={"/"}>
@@ -62,7 +60,7 @@ class AddQuote extends React.Component {
         </Link>
         <p>Provide a quote by {this.state.name}:</p>
         <div className="table">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleFormSubmit}>
             <table>
               <tbody>
                 <tr>
@@ -85,7 +83,7 @@ class AddQuote extends React.Component {
             <Link to={"/quotes/" + this.props.match.params.id}>
               <button>Cancel</button>
             </Link>
-            <input type="submit" value="Submit" disabled={!this.state.quoteValid} />
+            <input type="submit" value="Submit" disabled={!this.state.quoteValid} onClick={this.handleSubmitButton} />
           </form>
         </div>
       </div>
@@ -98,7 +96,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  makeAuthor: (newAuthor) => dispatch(createAuthor(newAuthor))
+  makeQuote: (newQuote) => dispatch(createQuote(newQuote))
 })
 
 export default connect(
