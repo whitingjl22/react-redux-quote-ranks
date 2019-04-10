@@ -24,6 +24,7 @@
 .authorList_contentContainer h3 {
   display: inline-block;
   padding: 5px;
+  border-right: 1px solid black;
 }
 
 .authorList_resultContainer li {

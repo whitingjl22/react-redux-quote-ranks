@@ -7,6 +7,8 @@ import "./Container.css"
 import AuthorList from "../components/AuthorList/AuthorList"
 import AddAuthor from "../components/AddAuthor/AddAuthor"
 import EditAuthor from "../components/EditAuthor/EditAuthor"
+import QuoteList from "../components/QuoteList/QuoteList"
+import AddQuote from "../components/AddQuote/AddQuote"
 
 class Container extends React.Component {
   constructor(props) {
@@ -26,6 +28,8 @@ class Container extends React.Component {
               <Route exact path="/" component={AuthorList} />
               <Route path="/new" component={AddAuthor} />
               <Route path="/edit/:id" render={(props) => <EditAuthor {...props} />} />
+              <Route path="/quotes/:id" render={(props) => <QuoteList {...props} />} />
+              <Route path="/write/:id" render={(props) => <AddQuote {...props} />} />
             </Switch>
           </div>
         </BrowserRouter>

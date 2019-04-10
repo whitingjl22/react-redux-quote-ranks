@@ -1,0 +1,28 @@
+.quoteList_contentContainer {
+  border-style: solid;
+  /* width: 900px; */
+  width: 1300px;
+  margin: 20px;
+  min-height: 550px;
+  background: lightgray;
+}
+
+.quoteListContainer p {
+  margin-left: 22px;
+}
+
+.quoteList_contentContainer h3 {
+  display: inline-block;
+  padding: 5px;
+  border-right: 1px solid black;
+}
+
+.quoteList_contentContainer hr {
+  height: 2px;
+  background-color: black;
+  border: none;
+}
+
+.quoteList_resultContainer li {
+  list-style: none;
+}
