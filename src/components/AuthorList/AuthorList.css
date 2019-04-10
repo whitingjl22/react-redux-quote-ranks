@@ -1,37 +1,11 @@
-.authorListContainer h1 {
-  margin-left: 20px;
-}
-
 .authorListContainer p {
   margin-left: 22px;
 }
 
 .authorList_contentContainer {
   border-style: solid;
-  /* width: 900px; */
-  width: 1300px;
+  width: 700px;
   margin: 20px;
-  min-height: 550px;
+  min-height: 300px;
   background: lightgray;
-}
-
-.authorList_contentContainer hr {
-  height: 2px;
-  background-color: black;
-  border: none;
-}
-
-.authorList_contentContainer h3 {
-  display: inline-block;
-  padding: 5px;
-  border-right: 1px solid black;
-}
-
-.authorList_resultContainer li {
-  list-style: none;
-}
-
-.test {
-  width: 500px;
-  display: inline-block;
 }

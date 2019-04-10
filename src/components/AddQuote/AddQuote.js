@@ -59,6 +59,9 @@ class AddQuote extends React.Component {
           <p>Home</p>
         </Link>
         <p>Provide a quote by {this.state.name}:</p>
+        <div className="errorMessage">
+          {this.state.quoteValid ? null : "A quote must contain at least three characters!"}
+        </div>
         <div className="table">
           <form onSubmit={this.handleFormSubmit}>
             <table>

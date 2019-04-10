@@ -47,6 +47,9 @@ class AddAuthor extends React.Component {
           <p>Home</p>
         </Link>
         <p>Add a new quotable author:</p>
+        <div className="errorMessage">
+          {this.state.nameValid ? null : "A name must contain at least three characters!"}
+        </div>
         <div className="table">
           <form onSubmit={this.handleSubmit}>
             <table>

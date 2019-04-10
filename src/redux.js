@@ -8,6 +8,11 @@ export const deleteProduct = (id) => ({
   type: "DELETE_PRODUCT",
   id
 })
+export const deleteQuote = (quoteId, authorId) => ({
+  type: "DELETE_QUOTE",
+  quoteId,
+  authorId
+})
 export const createAuthor = (newAuthor) => ({
   type: "CREATE_AUTHOR",
   newAuthor
@@ -41,6 +46,36 @@ export const reducers = (state = initialState, action) => {
         products: [...state.products.slice(0, deleteIndex), ...state.products.slice(deleteIndex + 1)]
       }
 
+    case "DELETE_QUOTE": // Nested Object
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- DELETE_QUOTE | state: ", state)
+      console.log(" -- REDUCER -- DELETE_QUOTE | action", action)
+
+      return {
+        ...state,
+        authors: [
+          ...state.authors.map((author) => {
+            console.log("AUTHOR/QUOTE CHECK: ", author.id, action.authorId)
+            if (author.id === action.authorId) {
+              console.log("AUTHOR/QUOTE FOUND: ", author.id, action.authorId)
+
+              let deleteIndex = author.quotes.findIndex((obj) => obj["id"] === action.id)
+              console.log("delete index: ", deleteIndex)
+              if (deleteIndex >= 0) {
+                return {
+                  ...author,
+                  quotes: [...author.quotes.slice(0, deleteIndex), ...author.quotes.slice(deleteIndex + 1)]
+                }
+              }
+            }
+            return author
+          })
+        ]
+      }
+    // 	...state,
+    // 	products: [...state.products.slice(0, deleteIndex), ...state.products.slice(deleteIndex + 1)]
+    // }
+
     case "CREATE_AUTHOR":
       console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
       console.log(" -- REDUCER -- CREATE_AUTHOR | state: ", state)
@@ -59,7 +94,7 @@ export const reducers = (state = initialState, action) => {
         ]
       }
 
-    case "CREATE_QUOTE":
+    case "CREATE_QUOTE": // Nested Object
       console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
       console.log(" -- REDUCER -- CREATE_QUOTE | state: ", state)
       console.log(" -- REDUCER -- CREATE_QUOTE | action", action)
@@ -77,7 +112,9 @@ export const reducers = (state = initialState, action) => {
                 quotes: [
                   ...author.quotes,
                   {
-                    quote: action.newQuote.quote
+                    id,
+                    quote: action.newQuote.quote,
+                    votes: 0
                   }
                 ]
               }
@@ -123,7 +160,7 @@ const initialState = {
         },
         {
           id: 2,
-          quote: "Whatever the mind of man can conceive and believe, it can achieve.",
+          quote: "Whatever the mind can conceive and believe, it can achieve.",
           votes: 0
         }
       ]
