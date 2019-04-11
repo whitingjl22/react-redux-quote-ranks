@@ -2,7 +2,7 @@ import React from "react"
 import "./EditAuthor.css"
 
 import { connect } from "react-redux"
-import { updateAuthor } from "../../redux"
+import { updateAuthor, deleteAuthor } from "../../redux"
 import { Redirect, Link } from "react-router-dom"
 
 class EditAuthor extends React.Component {
@@ -52,6 +52,14 @@ class EditAuthor extends React.Component {
     })
   }
 
+  handleDeleteButton = () => {
+    this.props.removeAuthor(parseInt(this.props.match.params.id))
+
+    this.setState({
+      toAuthorList: true
+    })
+  }
+
   render() {
     if (this.state.toAuthorList === true) {
       return <Redirect to="/" />
@@ -87,6 +95,7 @@ class EditAuthor extends React.Component {
               <button>Cancel</button>
             </Link>
             <input type="submit" value="Update" disabled={!this.state.nameValid} onClick={this.handleUpdateButton} />
+            <button onClick={this.handleDeleteButton}>Delete</button>
           </form>
         </div>
       </div>
@@ -99,7 +108,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  reviseAuthor: (id, updatedAuthor) => dispatch(updateAuthor(id, updatedAuthor))
+  reviseAuthor: (id, updatedAuthor) => dispatch(updateAuthor(id, updatedAuthor)),
+  removeAuthor: (id) => dispatch(deleteAuthor(id))
 })
 
 export default connect(

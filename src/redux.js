@@ -4,8 +4,8 @@ import { createStore } from "redux"
 export const retrieveProducts = () => ({
   type: "RETRIEVE_PRODUCTS"
 })
-export const deleteProduct = (id) => ({
-  type: "DELETE_PRODUCT",
+export const deleteAuthor = (id) => ({
+  type: "DELETE_AUTHOR",
   id
 })
 export const deleteQuote = (quoteId, authorId) => ({
@@ -36,14 +36,14 @@ export const reducers = (state = initialState, action) => {
       console.log(" -- REDUCER -- RETRIEVE_PRODUCTS | action", action)
       return state.products
 
-    case "DELETE_PRODUCT":
+    case "DELETE_AUTHOR":
       console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
-      console.log(" -- REDUCER -- DELETE_PRODUCT | state: ", state)
-      console.log(" -- REDUCER -- DELETE_PRODUCT | action", action)
-      let deleteIndex = state.products.findIndex((obj) => obj["id"] === action.id)
+      console.log(" -- REDUCER -- DELETE_AUTHOR | state: ", state)
+      console.log(" -- REDUCER -- DELETE_AUTHOR | action", action)
+      let deleteIndex = state.authors.findIndex((obj) => obj["id"] === action.id)
       return {
         ...state,
-        products: [...state.products.slice(0, deleteIndex), ...state.products.slice(deleteIndex + 1)]
+        authors: [...state.authors.slice(0, deleteIndex), ...state.authors.slice(deleteIndex + 1)]
       }
 
     case "DELETE_QUOTE": // Nested Object
@@ -60,6 +60,7 @@ export const reducers = (state = initialState, action) => {
               console.log("AUTHOR/QUOTE FOUND: ", author.id, action.authorId)
 
               let deleteIndex = author.quotes.findIndex((obj) => obj["id"] === action.id)
+
               console.log("delete index: ", deleteIndex)
               if (deleteIndex >= 0) {
                 return {

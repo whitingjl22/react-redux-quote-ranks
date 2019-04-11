@@ -3,6 +3,7 @@ import "./AuthorList.css"
 
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
+import { deleteAuthor } from "../../redux"
 
 class AuthorList extends React.Component {
   constructor(props) {
@@ -40,6 +41,12 @@ class AuthorList extends React.Component {
                         <Link to={"/edit/" + author.id}>
                           <button>Edit</button>
                         </Link>
+                        <button
+                          onClick={() => {
+                            this.props.removeAuthor(author.id)
+                          }}>
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   )
@@ -57,7 +64,9 @@ const mapStateToProps = (state) => ({
   authors: state.authors
 })
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  removeAuthor: (id) => dispatch(deleteAuthor(id))
+})
 
 export default connect(
   mapStateToProps,
